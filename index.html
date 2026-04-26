@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plomberie Dupont — Expert Plombier à Lyon</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0a1628;
+    --blue: #1a3a6b;
+    --accent: #f97316;
+    --accent2: #fbbf24;
+    --light: #f0f4ff;
+    --white: #ffffff;
+    --gray: #64748b;
+    --text: #1e293b;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 5%;
+    background: rgba(10,22,40,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(249,115,22,0.2);
+    animation: slideDown .6s ease;
+  }
+  @keyframes slideDown { from{transform:translateY(-100%);opacity:0} to{transform:translateY(0);opacity:1} }
+
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    color: var(--white);
+  }
+  .logo span { color: var(--accent); }
+
+  nav ul { list-style: none; display: flex; gap: 2rem; }
+  nav ul a {
+    color: rgba(255,255,255,.75);
+    text-decoration: none;
+    font-size: .9rem;
+    font-weight: 500;
+    letter-spacing: .5px;
+    transition: color .2s;
+  }
+  nav ul a:hover { color: var(--accent); }
+
+  .btn-nav {
+    background: var(--accent);
+    color: var(--white);
+    border: none;
+    padding: .65rem 1.4rem;
+    border-radius: 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: .9rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background .2s, transform .15s;
+  }
+  .btn-nav:hover { background: #ea6a05; transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 0 5%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(26,58,107,.6) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 20% 80%, rgba(249,115,22,.15) 0%, transparent 60%);
+  }
+
+  /* Pipe decoration */
+  .pipe-deco {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 45%;
+    display: flex; align-items: center; justify-content: center;
+    opacity: .15;
+    font-size: 22rem;
+    line-height: 1;
+    pointer-events: none;
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)}
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 620px;
+    animation: fadeUp .8s ease .2s both;
+  }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: .5rem;
+    background: rgba(249,115,22,.15);
+    border: 1px solid rgba(249,115,22,.4);
+    color: var(--accent);
+    padding: .4rem 1rem;
+    border-radius: 100px;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 8vw, 6.5rem);
+    line-height: .95;
+    letter-spacing: 2px;
+    margin-bottom: 1.5rem;
+  }
+  h1 em { color: var(--accent); font-style: normal; }
+
+  .hero-desc {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,.75);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: .6rem;
+    background: var(--accent);
+    color: var(--white);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all .2s;
+    box-shadow: 0 8px 30px rgba(249,115,22,.3);
+  }
+  .btn-primary:hover { background: #ea6a05; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(249,115,22,.4); }
+
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: .6rem;
+    border: 1.5px solid rgba(255,255,255,.3);
+    color: var(--white);
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: all .2s;
+    backdrop-filter: blur(6px);
+  }
+  .btn-secondary:hover { border-color: var(--white); background: rgba(255,255,255,.07); }
+
+  /* stats strip */
+  .stats-strip {
+    background: rgba(255,255,255,.04);
+    border-top: 1px solid rgba(255,255,255,.08);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+    padding: 2rem 5%;
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+    flex-wrap: wrap;
+    animation: fadeUp .8s ease .5s both;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.8rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stat-label { font-size: .8rem; color: rgba(255,255,255,.5); font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-top: .3rem; }
+
+  /* ── SERVICES ── */
+  section { padding: 6rem 5%; }
+
+  .section-tag {
+    font-size: .75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-intro {
+    color: rgba(255,255,255,.6);
+    font-size: 1.05rem;
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 3.5rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .service-card {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all .3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform .3s;
+    transform-origin: left;
+  }
+  .service-card:hover { background: rgba(255,255,255,.07); transform: translateY(-4px); border-color: rgba(249,115,22,.3); }
+  .service-card:hover::before { transform: scaleX(1); }
+
+  .service-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+  .service-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    margin-bottom: .8rem;
+    color: var(--white);
+  }
+  .service-card p {
+    color: rgba(255,255,255,.6);
+    font-size: .92rem;
+    line-height: 1.65;
+  }
+
+  /* ── URGENCE BAND ── */
+  .urgence {
+    background: var(--accent);
+    padding: 2.5rem 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .urgence-text h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    color: var(--white);
+  }
+  .urgence-text p { color: rgba(255,255,255,.85); font-size: .95rem; margin-top: .3rem; }
+
+  .urgence-phone {
+    display: flex; align-items: center; gap: 1rem;
+    background: rgba(0,0,0,.2);
+    border-radius: 12px;
+    padding: 1rem 1.8rem;
+    text-decoration: none;
+    color: var(--white);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 3px;
+    transition: background .2s;
+  }
+  .urgence-phone:hover { background: rgba(0,0,0,.3); }
+
+  /* ── POURQUOI NOUS ── */
+  .why-section { background: rgba(255,255,255,.02); }
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .why-items { display: flex; flex-direction: column; gap: 1.8rem; }
+  .why-item { display: flex; gap: 1.2rem; align-items: flex-start; }
+  .why-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    color: rgba(249,115,22,.25);
+    line-height: 1;
+    min-width: 2.5rem;
+    text-align: right;
+  }
+  .why-item h4 {
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: .4rem;
+    color: var(--white);
+  }
+  .why-item p { color: rgba(255,255,255,.55); font-size: .9rem; line-height: 1.6; }
+
+  .why-visual {
+    background: linear-gradient(135deg, rgba(26,58,107,.8), rgba(10,22,40,.8));
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 20px;
+    padding: 3rem;
+    text-align: center;
+  }
+  .rating-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 7rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .stars { font-size: 2rem; color: var(--accent2); letter-spacing: 4px; margin: .5rem 0; }
+  .why-visual p { color: rgba(255,255,255,.6); font-size: .9rem; }
+  .review-preview {
+    margin-top: 2rem;
+    background: rgba(255,255,255,.05);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: left;
+  }
+  .reviewer { font-weight: 700; font-size: .9rem; margin-bottom: .5rem; }
+  .reviewer span { color: rgba(255,255,255,.4); font-weight: 400; }
+  .review-text { color: rgba(255,255,255,.6); font-size: .85rem; line-height: 1.6; font-style: italic; }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    background: linear-gradient(180deg, var(--navy) 0%, rgba(26,58,107,.3) 100%);
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .contact-info h2 { margin-bottom: 1rem; }
+  .contact-info p { color: rgba(255,255,255,.6); line-height: 1.7; margin-bottom: 2rem; }
+
+  .contact-details { display: flex; flex-direction: column; gap: 1.2rem; }
+  .contact-item {
+    display: flex; align-items: center; gap: 1rem;
+    color: rgba(255,255,255,.8);
+    font-size: .95rem;
+  }
+  .contact-icon {
+    width: 42px; height: 42px;
+    background: rgba(249,115,22,.15);
+    border: 1px solid rgba(249,115,22,.3);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .contact-form {
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 20px;
+    padding: 2.5rem;
+  }
+  .contact-form h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+  }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label {
+    display: block;
+    font-size: .82rem;
+    font-weight: 600;
+    letter-spacing: .5px;
+    color: rgba(255,255,255,.6);
+    margin-bottom: .5rem;
+    text-transform: uppercase;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    background: rgba(255,255,255,.06);
+    border: 1.5px solid rgba(255,255,255,.1);
+    border-radius: 10px;
+    padding: .85rem 1rem;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: .95rem;
+    transition: border-color .2s;
+    outline: none;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus { border-color: var(--accent); }
+  .form-group select option { background: var(--navy); }
+  .form-group textarea { resize: vertical; min-height: 100px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .btn-submit {
+    width: 100%;
+    background: var(--accent);
+    color: var(--white);
+    border: none;
+    padding: 1.1rem;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all .2s;
+    margin-top: .5rem;
+    box-shadow: 0 6px 24px rgba(249,115,22,.3);
+  }
+  .btn-submit:hover { background: #ea6a05; transform: translateY(-2px); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid rgba(255,255,255,.08);
+    padding: 2rem 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  footer p { color: rgba(255,255,255,.35); font-size: .85rem; }
+  .footer-links { display: flex; gap: 1.5rem; }
+  .footer-links a { color: rgba(255,255,255,.4); text-decoration: none; font-size: .85rem; transition: color .2s; }
+  .footer-links a:hover { color: var(--accent); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav ul { display: none; }
+    .stats-strip { gap: 2rem; }
+    .why-grid, .contact-grid { grid-template-columns: 1fr; }
+    .why-visual { display: none; }
+    .form-row { grid-template-columns: 1fr; }
+    .urgence { flex-direction: column; text-align: center; }
+    .pipe-deco { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Plomberie<span>Dupont</span></div>
+  <ul>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#pourquoi">À propos</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="tel:0612345678" class="btn-nav">📞 Urgence 24h/7j</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="pipe-deco">🔧</div>
+  <div class="hero-content">
+    <div class="badge">⚡ Intervention en moins de 2h</div>
+    <h1>Votre Plombier<br><em>Expert</em> à Lyon</h1>
+    <p class="hero-desc">Fuite, dépannage, installation de salle de bain — Plomberie Dupont intervient rapidement chez vous, 7j/7, avec 20 ans d'expérience et un devis gratuit.</p>
+    <div class="hero-ctas">
+      <a href="tel:0612345678" class="btn-primary">📞 Appeler maintenant</a>
+      <a href="#contact" class="btn-secondary">Devis gratuit →</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stat">
+    <div class="stat-num">20+</div>
+    <div class="stat-label">Années d'expérience</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">2 500+</div>
+    <div class="stat-label">Clients satisfaits</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">4.9★</div>
+    <div class="stat-label">Note Google</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">24h/7j</div>
+    <div class="stat-label">Disponible</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-tag">Ce que nous faisons</div>
+  <h2>Nos Services</h2>
+  <p class="section-intro">Du dépannage urgent à la rénovation complète de votre salle de bain, nous couvrons tous vos besoins de plomberie.</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <span class="service-icon">💧</span>
+      <h3>Fuites & Dépannage</h3>
+      <p>Fuite d'eau, tuyau percé, robinet qui goutte — intervention rapide pour stopper les dégâts avant qu'ils ne s'aggravent.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🚿</span>
+      <h3>Salle de Bain</h3>
+      <p>Rénovation complète, installation de douche à l'italienne, baignoire balnéo, meuble vasque — on s'occupe de tout.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🔥</span>
+      <h3>Chaudière & Chauffage</h3>
+      <p>Entretien annuel, dépannage, remplacement de chaudière gaz ou pompe à chaleur. Agréé RGE.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🚽</span>
+      <h3>WC & Sanitaires</h3>
+      <p>Débouchage, remplacement de WC, installation de WC suspendu. Rapide, propre et sans mauvaise surprise.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🏗️</span>
+      <h3>Installation Neuve</h3>
+      <p>Construction ou rénovation — nous intervenons en amont pour l'ensemble de la plomberie de votre logement.</p>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">🌡️</span>
+      <h3>Urgence 24h/7j</h3>
+      <p>Une urgence ne prévient pas. Notre équipe est disponible en permanence, week-ends et jours fériés inclus.</p>
+    </div>
+  </div>
+</section>
+
+<!-- URGENCE BAND -->
+<div class="urgence">
+  <div class="urgence-text">
+    <h3>🚨 Urgence Plomberie ?</h3>
+    <p>Appelez-nous maintenant — nous intervenons en moins de 2 heures sur Lyon et agglomération.</p>
+  </div>
+  <a href="tel:0612345678" class="urgence-phone">📞 06 12 34 56 78</a>
+</div>
+
+<!-- POURQUOI NOUS -->
+<section id="pourquoi" class="why-section">
+  <div class="why-grid">
+    <div>
+      <div class="section-tag">Pourquoi nous choisir</div>
+      <h2>La Différence<br>Dupont</h2>
+      <div class="why-items">
+        <div class="why-item">
+          <div class="why-num">01</div>
+          <div>
+            <h4>Devis gratuit & transparent</h4>
+            <p>Aucune mauvaise surprise. Vous recevez un devis détaillé avant toute intervention. Le prix affiché est le prix payé.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">02</div>
+          <div>
+            <h4>Artisan certifié & assuré</h4>
+            <p>Qualibat, RGE, assurance décennale complète. Nos travaux sont garantis et votre logement protégé.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">03</div>
+          <div>
+            <h4>Ponctuel & respectueux</h4>
+            <p>On arrive à l'heure, on protège votre intérieur, on nettoie après l'intervention. Bref, on se comporte comme chez nous.</p>
+          </div>
+        </div>
+        <div class="why-item">
+          <div class="why-num">04</div>
+          <div>
+            <h4>20 ans d'expérience locale</h4>
+            <p>Implantés à Lyon depuis 2004, nous connaissons les installations locales et leur particularités par cœur.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="why-visual">
+      <div class="rating-big">4.9</div>
+      <div class="stars">★★★★★</div>
+      <p>Basé sur 312 avis Google vérifiés</p>
+      <div class="review-preview">
+        <div class="reviewer">Marie T. <span>— il y a 2 semaines</span></div>
+        <div class="review-text">"Intervention en moins d'une heure pour une fuite sous évier. Très professionnel, tarif honnête. Je recommande vivement Plomberie Dupont !"</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="section-tag">Nous contacter</div>
+      <h2>Demandez Votre Devis Gratuit</h2>
+      <p>Décrivez votre besoin, nous vous rappelons sous 30 minutes (heures ouvrées) avec une estimation claire et sans engagement.</p>
+      <div class="contact-details">
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <span>06 12 34 56 78 — Disponible 24h/7j</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📧</div>
+          <span>contact@plomberie-dupont.fr</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <span>Lyon & agglomération — Rayon 30 km</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">⏰</div>
+          <span>Lun–Ven 8h–19h · Sam 9h–17h · Urgences 24h/7j</span>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <h3>Formulaire de Contact</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Prénom</label>
+          <input type="text" placeholder="Jean">
+        </div>
+        <div class="form-group">
+          <label>Nom</label>
+          <input type="text" placeholder="Martin">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Téléphone</label>
+        <input type="tel" placeholder="06 00 00 00 00">
+      </div>
+      <div class="form-group">
+        <label>Type d'intervention</label>
+        <select>
+          <option>Fuite / Dégât des eaux</option>
+          <option>Dépannage WC / Sanitaires</option>
+          <option>Chaudière / Chauffage</option>
+          <option>Rénovation salle de bain</option>
+          <option>Installation neuve</option>
+          <option>Autre</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <textarea placeholder="Décrivez votre problème en quelques mots..."></textarea>
+      </div>
+      <button class="btn-submit">Envoyer ma demande →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo" style="font-size:1.3rem">Plomberie<span style="color:var(--accent)">Dupont</span></div>
+  <p>© 2025 Plomberie Dupont · SIRET 123 456 789 · Qualibat · RGE</p>
+  <div class="footer-links">
+    <a href="#">Mentions légales</a>
+    <a href="#">Confidentialité</a>
+    <a href="#">CGV</a>
+  </div>
+</footer>
+
+</body>
+</html>

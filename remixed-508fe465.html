@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plomberie Secours · Clichy 92</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --bg:#ffffff;
+  --panel:#f7f7f7;
+  --line:rgba(0,0,0,0.08);
+  --cyan:#e63946;
+  --cyan2:#c1121f;
+  --glow:rgba(230,57,70,0.1);
+  --white:#2b2b2b;
+  --dim:rgba(43,43,43,0.45);
+  --font:'Inter',sans-serif;
+  --mono:'Inter',sans-serif;
+}
+
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--white);
+  font-family:var(--font);
+  overflow-x:hidden;
+  min-height:100vh;
+}
+
+/* ── GRID BG ── */
+body::before{
+  content:'';
+  position:fixed;inset:0;z-index:0;
+  background-image:
+    linear-gradient(rgba(0,200,255,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,200,255,0.04) 1px,transparent 1px);
+  background-size:60px 60px;
+  pointer-events:none;
+}
+
+/* ── SCANLINE ── */
+body::after{
+  content:'';
+  position:fixed;inset:0;z-index:0;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);
+  pointer-events:none;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 4%;
+  background:rgba(4,6,10,0.85);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--line);
+}
+.logo{
+  font-family:var(--mono);
+  font-size:1rem;letter-spacing:3px;
+  color:var(--cyan);
+  text-transform:uppercase;
+}
+.logo span{color:var(--white);opacity:.5}
+
+.nav-links{display:flex;gap:2.5rem}
+.nav-links a{
+  font-size:.78rem;letter-spacing:2px;text-transform:uppercase;
+  color:var(--dim);text-decoration:none;cursor:pointer;
+  transition:color .2s;font-family:var(--mono);
+}
+.nav-links a:hover{color:var(--cyan)}
+
+/* ── PAGES ── */
+.page{display:none;position:relative;z-index:1;padding-top:72px}
+.page.active{display:block}
+
+/* ══ HOME ══ */
+.hero{
+  min-height:calc(100vh - 72px);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  padding:4rem 5%;
+  position:relative;
+}
+
+/* rotating ring */
+.ring{
+  position:absolute;
+  width:600px;height:600px;
+  border-radius:50%;
+  border:1px solid rgba(0,200,255,0.08);
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  animation:spin 30s linear infinite;
+  pointer-events:none;
+}
+.ring::before{
+  content:'';position:absolute;
+  width:100%;height:100%;
+  border-radius:50%;
+  border:1px solid transparent;
+  border-top:1px solid var(--cyan);
+  opacity:.3;
+}
+.ring2{
+  width:420px;height:420px;
+  border:1px solid rgba(0,255,229,0.06);
+  animation:spin 18s linear infinite reverse;
+}
+.ring2::before{border-top-color:var(--cyan2);opacity:.2}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+
+/* center glow */
+.hero-glow{
+  position:absolute;
+  width:300px;height:300px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(0,200,255,0.08) 0%,transparent 70%);
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+  animation:pulse 4s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:.6;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.15)}}
+
+.hero-content{position:relative;z-index:2}
+
+.status-bar{
+  display:inline-flex;align-items:center;gap:.6rem;
+  border:1px solid rgba(0,200,255,0.2);
+  border-radius:2px;
+  padding:.35rem 1rem;
+  margin-bottom:2.5rem;
+  font-family:var(--mono);font-size:.7rem;letter-spacing:2px;
+  color:var(--cyan);text-transform:uppercase;
+}
+.dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--cyan);
+  animation:blink 1.2s step-end infinite;
+  box-shadow:0 0 6px var(--cyan);
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+h1{
+  font-size:clamp(3rem,8vw,6.5rem);
+  font-weight:700;
+  line-height:.92;
+  letter-spacing:-2px;
+  margin-bottom:1.5rem;
+  color:var(--white);
+}
+h1 .outline{
+  color:transparent;
+  -webkit-text-stroke:1px var(--cyan);
+  opacity:.7;
+}
+
+.tagline{
+  font-family:var(--mono);
+  font-size:.85rem;letter-spacing:2px;
+  color:var(--dim);
+  margin-bottom:3.5rem;
+  text-transform:uppercase;
+}
+
+.cta-group{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap}
+
+.btn-cta{
+  font-family:var(--mono);
+  font-size:.8rem;letter-spacing:2px;text-transform:uppercase;
+  padding:.9rem 2rem;
+  border-radius:2px;
+  cursor:pointer;
+  transition:all .25s;
+  text-decoration:none;
+  border:none;
+}
+.btn-main{
+  background:var(--cyan);
+  color:var(--bg);
+  font-weight:700;
+  box-shadow:0 0 30px rgba(0,200,255,0.3);
+}
+.btn-main:hover{box-shadow:0 0 50px rgba(0,200,255,0.5);transform:translateY(-2px)}
+
+.btn-ghost{
+  background:transparent;
+  border:1px solid rgba(0,200,255,0.3);
+  color:var(--cyan);
+}
+.btn-ghost:hover{border-color:var(--cyan);background:rgba(0,200,255,0.06);transform:translateY(-2px)}
+
+.scroll-hint{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  font-family:var(--mono);font-size:.65rem;letter-spacing:3px;
+  color:rgba(0,200,255,0.3);text-transform:uppercase;
+  display:flex;flex-direction:column;align-items:center;gap:.6rem;
+}
+.scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,rgba(0,200,255,0.4),transparent);animation:scrollAnim 2s ease-in-out infinite}
+@keyframes scrollAnim{0%,100%{opacity:0;transform:scaleY(.5)}50%{opacity:1;transform:scaleY(1)}}
+
+/* ══ TARIFS ══ */
+.tarifs-page{
+  min-height:calc(100vh - 72px);
+  padding:5rem 5% 6rem;
+  position:relative;z-index:1;
+}
+
+.page-header{text-align:center;margin-bottom:4rem}
+.page-label{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:3px;
+  color:var(--cyan);text-transform:uppercase;margin-bottom:1rem;
+  display:block;
+}
+h2{
+  font-size:clamp(2rem,5vw,3.5rem);
+  font-weight:700;letter-spacing:-1px;color:var(--white);
+  margin-bottom:.8rem;
+}
+.page-sub{color:var(--dim);font-size:.9rem;font-family:var(--mono);letter-spacing:1px}
+
+.tarifs-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1px;
+  border:1px solid var(--line);
+  max-width:1100px;margin:0 auto;
+}
+
+.tarif-item{
+  padding:2.5rem 2rem;
+  border-right:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  background:var(--panel);
+  cursor:pointer;
+  transition:all .3s;
+  position:relative;
+  overflow:hidden;
+}
+.tarif-item::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+  opacity:0;transition:opacity .3s;
+}
+.tarif-item:hover{background:rgba(0,200,255,0.04)}
+.tarif-item:hover::before{opacity:1}
+
+.t-num{
+  font-family:var(--mono);font-size:.65rem;letter-spacing:2px;
+  color:rgba(0,200,255,0.3);margin-bottom:1.5rem;
+}
+.t-icon{font-size:1.6rem;margin-bottom:1rem;display:block;filter:grayscale(30%)}
+.t-name{
+  font-size:1.1rem;font-weight:600;color:var(--white);
+  margin-bottom:1rem;letter-spacing:.5px;
+}
+.t-price{
+  font-family:var(--mono);
+  font-size:2.2rem;font-weight:700;
+  color:var(--cyan);
+  letter-spacing:-1px;
+  line-height:1;
+  margin-bottom:.3rem;
+}
+.t-price sup{font-size:1rem;vertical-align:super}
+.t-from{font-size:.7rem;color:var(--dim);letter-spacing:1px;text-transform:uppercase;margin-bottom:1.5rem;font-family:var(--mono)}
+.t-desc{font-size:.85rem;color:var(--dim);line-height:1.7;margin-bottom:1.5rem}
+.t-link{
+  font-family:var(--mono);font-size:.7rem;letter-spacing:2px;
+  color:var(--cyan);text-transform:uppercase;
+  opacity:0;transition:opacity .3s;
+  display:flex;align-items:center;gap:.5rem;
+}
+.t-link::after{content:'→'}
+.tarif-item:hover .t-link{opacity:1}
+
+.tarifs-note{
+  text-align:center;margin-top:3rem;
+  font-family:var(--mono);font-size:.72rem;letter-spacing:1.5px;
+  color:rgba(0,200,255,0.3);text-transform:uppercase;
+}
+
+/* ══ CONTACT ══ */
+.contact-page{
+  min-height:calc(100vh - 72px);
+  padding:5rem 5% 6rem;
+  position:relative;z-index:1;
+}
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:1px;border:1px solid var(--line);
+  max-width:900px;margin:0 auto;
+}
+
+.contact-left{
+  background:var(--panel);
+  padding:3rem 2.5rem;
+  border-right:1px solid var(--line);
+}
+.contact-left h3{
+  font-size:1.4rem;font-weight:600;margin-bottom:.6rem;letter-spacing:.5px;
+}
+.contact-left p{color:var(--dim);font-size:.88rem;line-height:1.75;margin-bottom:2.5rem}
+
+.coord-item{
+  display:flex;flex-direction:column;
+  margin-bottom:1.8rem;
+}
+.coord-label{
+  font-family:var(--mono);font-size:.65rem;letter-spacing:2px;
+  color:rgba(0,200,255,0.4);text-transform:uppercase;margin-bottom:.3rem;
+}
+.coord-val{font-size:.95rem;color:var(--white);font-weight:500}
+.coord-val a{color:inherit;text-decoration:none;transition:color .2s}
+.coord-val a:hover{color:var(--cyan)}
+
+.contact-right{
+  background:var(--panel);
+  padding:3rem 2.5rem;
+}
+.contact-right h3{font-size:1.4rem;font-weight:600;margin-bottom:2rem;letter-spacing:.5px}
+
+.fg{margin-bottom:1.2rem}
+.fg label{
+  display:block;font-family:var(--mono);font-size:.65rem;
+  letter-spacing:2px;text-transform:uppercase;
+  color:rgba(0,200,255,0.4);margin-bottom:.5rem;
+}
+.fg input,.fg select,.fg textarea{
+  width:100%;
+  background:rgba(0,200,255,0.03);
+  border:1px solid rgba(0,200,255,0.12);
+  border-radius:2px;
+  padding:.75rem 1rem;
+  color:var(--white);
+  font-family:var(--font);font-size:.9rem;
+  outline:none;transition:border-color .2s;
+}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:rgba(0,200,255,0.4)}
+.fg select option{background:var(--bg)}
+.fg textarea{resize:vertical;min-height:80px}
+
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+
+.btn-send{
+  width:100%;margin-top:.5rem;
+  background:transparent;
+  border:1px solid var(--cyan);
+  color:var(--cyan);
+  font-family:var(--mono);font-size:.78rem;letter-spacing:2px;
+  text-transform:uppercase;
+  padding:1rem;cursor:pointer;
+  border-radius:2px;
+  transition:all .25s;
+}
+.btn-send:hover{background:var(--cyan);color:var(--bg);font-weight:700;box-shadow:0 0 30px rgba(0,200,255,0.3)}
+
+.sending-overlay{
+  display:none;text-align:center;padding:2.5rem 0;
+}
+.sending-overlay.active{display:block}
+.s-spinner{
+  width:40px;height:40px;border-radius:50%;
+  border:2px solid rgba(0,200,255,0.15);
+  border-top:2px solid var(--cyan);
+  animation:spin2 .8s linear infinite;
+  margin:0 auto 1.2rem;
+}
+@keyframes spin2{to{transform:rotate(360deg)}}
+.s-status{font-family:var(--mono);font-size:.78rem;letter-spacing:2px;color:var(--cyan);text-transform:uppercase}
+
+.success-overlay{
+  display:none;text-align:center;padding:2rem 0;
+}
+.success-overlay.active{display:block}
+.s-check{font-size:2.5rem;margin-bottom:1rem}
+.success-overlay h4{font-family:var(--mono);font-size:1rem;letter-spacing:3px;text-transform:uppercase;color:var(--white);margin-bottom:.8rem}
+.success-overlay p{color:var(--dim);font-size:.83rem;line-height:1.7}
+
+/* ══ FOOTER ══ */
+footer{
+  border-top:1px solid var(--line);
+  padding:1.5rem 5%;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;
+  position:relative;z-index:1;
+}
+footer p{font-family:var(--mono);font-size:.65rem;letter-spacing:1.5px;color:rgba(255,255,255,.15);text-transform:uppercase}
+.footer-nav{display:flex;gap:2rem}
+.footer-nav a{font-family:var(--mono);font-size:.65rem;letter-spacing:1.5px;color:rgba(0,200,255,.25);text-transform:uppercase;cursor:pointer;text-decoration:none;transition:color .2s}
+.footer-nav a:hover{color:var(--cyan)}
+
+/* ── MODAL ── */
+.modal-overlay{
+  display:none;position:fixed;inset:0;z-index:999;
+  background:rgba(4,6,10,0.9);
+  backdrop-filter:blur(12px);
+  align-items:center;justify-content:center;
+}
+.modal-overlay.active{display:flex;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+.modal{
+  background:var(--panel);
+  border:1px solid rgba(0,200,255,0.2);
+  border-radius:2px;
+  padding:3rem;width:90%;max-width:480px;
+  position:relative;
+  box-shadow:0 0 80px rgba(0,200,255,0.08);
+  animation:slideUp .3s ease;
+}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.modal-close{
+  position:absolute;top:1.2rem;right:1.2rem;
+  background:none;border:none;
+  color:var(--dim);font-size:1.1rem;cursor:pointer;
+  font-family:var(--mono);transition:color .2s;
+}
+.modal-close:hover{color:var(--cyan)}
+
+.modal-label{font-family:var(--mono);font-size:.65rem;letter-spacing:3px;color:var(--cyan);text-transform:uppercase;margin-bottom:.8rem}
+.modal h3{font-size:1.6rem;font-weight:700;margin-bottom:2rem;color:var(--white)}
+
+@media(max-width:768px){
+  .nav-links{display:none}
+  .contact-grid{grid-template-columns:1fr}
+  .contact-left{border-right:none;border-bottom:1px solid var(--line)}
+  .fr{grid-template-columns:1fr}
+  .ring,.ring2{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ MODAL RAPIDE ══ -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="m-form">
+      <div class="modal-label">// Demande de rappel</div>
+      <h3>Être Recontacté</h3>
+      <div class="fr">
+        <div class="fg"><label>Prénom</label><input type="text" id="m-prenom" placeholder="Jean"></div>
+        <div class="fg"><label>Nom</label><input type="text" id="m-nom" placeholder="Martin"></div>
+      </div>
+      <div class="fg"><label>Téléphone</label><input type="tel" id="m-tel" placeholder="06 00 00 00 00"></div>
+      <div class="fg"><label>Service souhaité</label>
+        <select id="m-service">
+          <option>Dépannage urgent</option><option>Fuite d'eau</option>
+          <option>Rénovation salle de bain</option><option>Chaudière / Chauffage</option>
+          <option>WC / Sanitaires</option><option>Installation neuve</option><option>Autre</option>
+        </select>
+      </div>
+      <div class="fg"><label>Message (facultatif)</label><textarea id="m-msg" placeholder="Décrivez votre besoin..."></textarea></div>
+      <button class="btn-send" onclick="sendRequest('modal')">→ Enregistrer ma demande</button>
+    </div>
+    <div class="sending-overlay" id="m-sending"><div class="s-spinner"></div><div class="s-status">Envoi en cours...</div></div>
+    <div class="success-overlay" id="m-success">
+      <div class="s-check">◎</div>
+      <h4>Demande Enregistrée</h4>
+      <p>Nous vous recontacterons très rapidement.<br>Urgence ? <strong style="color:var(--cyan)">01 23 45 67 89</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="logo" onclick="showPage('home')" style="cursor:pointer">PS<span>·</span>92</div>
+  <div class="nav-links">
+    <a onclick="showPage('home')">Accueil</a>
+    <a onclick="showPage('tarifs')">Tarifs</a>
+    <a onclick="showPage('contact')">Contact</a>
+  </div>
+</nav>
+
+<!-- ════════════════ HOME ════════════════ -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="ring"></div>
+    <div class="ring ring2"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="status-bar"><span class="dot"></span>Disponible 24h/7j · Clichy 92110</div>
+      <h1>PLOMBERIE<br><span class="outline">SECOURS</span></h1>
+      <p class="tagline">Expert plombier · Hauts-de-Seine · Devis gratuit</p>
+      <div class="cta-group">
+        <button class="btn-cta btn-main" onclick="openModal()">→ Être recontacté</button>
+        <button class="btn-cta btn-ghost" onclick="showPage('tarifs')">Voir les tarifs</button>
+      </div>
+    </div>
+    <div class="scroll-hint"><span>Défiler</span><div class="scroll-line"></div></div>
+  </div>
+</div>
+
+<!-- ════════════════ TARIFS ════════════════ -->
+<div class="page" id="page-tarifs">
+  <div class="tarifs-page">
+    <div class="page-header">
+      <span class="page-label">// tarification</span>
+      <h2>Nos Tarifs</h2>
+      <p class="page-sub">Devis gratuit · Prix indicatifs · Transparence totale</p>
+    </div>
+    <div class="tarifs-grid">
+      <div class="tarif-item" onclick="openModal()">
+        <div class="t-num">01</div>
+        <span class="t-icon">💧</span>
+        <div class="t-name">Dépannage & Fuites</div>
+        <div class="t-price"><sup>à partir de </sup>80<sup>€</sup></div>
+        <div class="t-from">Déplacement inclus</div>
+        <div class="t-desc">Fuite robinet, tuyau percé, siphon, joint — intervention rapide sur Clichy et le 92.</div>
+        <div class="t-link">Demander un devis</div>
+      </div>
+      <div class="tarif-item" onclick="openModal()">
+        <div class="t-num">02</div>
+        <span class="t-icon">🚿</span>
+        <div class="t-name">Rénovation Salle de Bain</div>
+        <div class="t-price"><sup>à partir de </sup>1 500<sup>€</sup></div>
+        <div class="t-from">Main-d'œuvre</div>
+        <div class="t-desc">Douche italienne, baignoire, vasque, robinetterie complète — garanti décennale.</div>
+        <div class="t-link">Demander un devis</div>
+      </div>
+      <div class="tarif-item" onclick="openModal()">
+        <div class="t-num">03</div>
+        <span class="t-icon">🔥</span>
+        <div class="t-name">Chaudière & Chauffage</div>
+        <div class="t-price"><sup>à partir de </sup>120<sup>€</sup></div>
+        <div class="t-from">Entretien annuel</div>
+        <div class="t-desc">Entretien, dépannage, remplacement — agréé RGE, attestation fournie.</div>
+        <div class="t-link">Demander un devis</div>
+      </div>
+      <div class="tarif-item" onclick="openModal()">
+        <div class="t-num">04</div>
+        <span class="t-icon">🚽</span>
+        <div class="t-name">WC & Sanitaires</div>
+        <div class="t-price"><sup>à partir de </sup>90<sup>€</sup></div>
+        <div class="t-from">Déplacement inclus</div>
+        <div class="t-desc">Débouchage, remplacement WC, installation WC suspendu — propre et rapide.</div>
+        <div class="t-link">Demander un devis</div>
+      </div>
+      <div class="tarif-item" onclick="openModal()">
+        <div class="t-num">05</div>
+        <span class="t-icon">🏗️</span>
+        <div class="t-name">Installation Neuve</div>
+        <div class="t-price">Sur devis</div>
+        <div class="t-from">Gratuit & sans engagement</div>
+        <div class="t-desc">Plomberie complète pour construction ou rénovation — étude personnalisée.</div>
+        <div class="t-link">Obtenir un devis</div>
+      </div>
+      <div class="tarif-item" onclick="openModal()">
+        <div class="t-num">06</div>
+        <span class="t-icon">⚡</span>
+        <div class="t-name">Urgence 24h/7j</div>
+        <div class="t-price"><sup>à partir de </sup>150<sup>€</sup></div>
+        <div class="t-from">Nuit, week-end & fériés</div>
+        <div class="t-desc">Intervention en moins de 2h sur Clichy et les Hauts-de-Seine — toute l'année.</div>
+        <div class="t-link">Appeler maintenant</div>
+      </div>
+    </div>
+    <p class="tarifs-note">// Prix indicatifs · Devis définitif établi sur place avant tout travail</p>
+  </div>
+</div>
+
+<!-- ════════════════ CONTACT ════════════════ -->
+<div class="page" id="page-contact">
+  <div class="contact-page">
+    <div class="page-header">
+      <span class="page-label">// contact</span>
+      <h2>Nous Contacter</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-left">
+        <h3>Coordonnées</h3>
+        <p>Disponible du lundi au vendredi de 8h à 19h, le samedi de 9h à 17h. Urgences prises en charge 24h/7j.</p>
+        <div class="coord-item">
+          <span class="coord-label">Téléphone</span>
+          <span class="coord-val"><a href="tel:0123456789">01 23 45 67 89</a></span>
+        </div>
+        <div class="coord-item">
+          <span class="coord-label">Email</span>
+          <span class="coord-val"><a href="mailto:Mahmoud.rahma1@icloud.com">Mahmoud.rahma1@icloud.com</a></span>
+        </div>
+        <div class="coord-item">
+          <span class="coord-label">Adresse</span>
+          <span class="coord-val">Clichy — 92110 Hauts-de-Seine</span>
+        </div>
+        <div class="coord-item">
+          <span class="coord-label">Zone d'intervention</span>
+          <span class="coord-val">Clichy · Levallois · Asnières · Gennevilliers · Colombes · Nanterre</span>
+        </div>
+      </div>
+      <div class="contact-right">
+        <h3>Être Recontacté</h3>
+        <div id="c-form">
+          <div class="fr">
+            <div class="fg"><label>Prénom</label><input type="text" id="c-prenom" placeholder="Jean"></div>
+            <div class="fg"><label>Nom</label><input type="text" id="c-nom" placeholder="Martin"></div>
+          </div>
+          <div class="fg"><label>Téléphone</label><input type="tel" id="c-tel" placeholder="06 00 00 00 00"></div>
+          <div class="fg"><label>Email</label><input type="email" id="c-email" placeholder="jean@exemple.fr"></div>
+          <div class="fg"><label>Service souhaité</label>
+            <select id="c-service">
+              <option>Dépannage urgent</option><option>Fuite d'eau</option>
+              <option>Rénovation salle de bain</option><option>Chaudière / Chauffage</option>
+              <option>WC / Sanitaires</option><option>Installation neuve</option><option>Autre</option>
+            </select>
+          </div>
+          <div class="fg"><label>Message (facultatif)</label><textarea id="c-msg" placeholder="Décrivez votre besoin..."></textarea></div>
+          <button class="btn-send" onclick="sendRequest('contact')">→ Enregistrer ma demande</button>
+        </div>
+        <div class="sending-overlay" id="c-sending"><div class="s-spinner"></div><div class="s-status">Envoi en cours...</div></div>
+        <div class="success-overlay" id="c-success">
+          <div class="s-check">◎</div>
+          <h4>Demande Enregistrée</h4>
+          <p>Nous vous recontacterons très rapidement.<br>Urgence ? <strong style="color:var(--cyan)">01 23 45 67 89</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <p>© 2025 Plomberie Secours · Clichy 92110</p>
+  <div class="footer-nav">
+    <a onclick="showPage('home')">Accueil</a>
+    <a onclick="showPage('tarifs')">Tarifs</a>
+    <a onclick="showPage('contact')">Contact</a>
+  </div>
+  <p>Qualibat · RGE · Assurance décennale</p>
+</footer>
+
+<!-- ══ EMAILJS SDK ══ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/emailjs-com/3.2.0/email.min.js"></script>
+<script>
+// ─── CONFIG EmailJS ───────────────────────────────────────
+// 1. Créez un compte gratuit sur https://www.emailjs.com
+// 2. Remplacez les 3 valeurs ci-dessous par vos identifiants
+const EMAILJS_PUBLIC_KEY  = 'VOTRE_PUBLIC_KEY';   // Account > API Keys
+const EMAILJS_SERVICE_ID  = 'VOTRE_SERVICE_ID';   // Email Services
+const EMAILJS_TEMPLATE_ID = 'VOTRE_TEMPLATE_ID';  // Email Templates
+// ─────────────────────────────────────────────────────────
+
+emailjs.init(EMAILJS_PUBLIC_KEY);
+
+// ── NAVIGATION ──
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── MODAL ──
+function openModal(){document.getElementById('modal').classList.add('active')}
+function closeModal(){document.getElementById('modal').classList.remove('active')}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+// ── ENVOI ──
+async function sendRequest(src){
+  const isModal = src==='modal';
+  const prenom  = document.getElementById(isModal?'m-prenom':'c-prenom').value.trim();
+  const nom     = document.getElementById(isModal?'m-nom':'c-nom').value.trim();
+  const tel     = document.getElementById(isModal?'m-tel':'c-tel').value.trim();
+  const email   = isModal ? '' : document.getElementById('c-email').value.trim();
+  const service = document.getElementById(isModal?'m-service':'c-service').value;
+  const msg     = document.getElementById(isModal?'m-msg':'c-msg').value.trim();
+
+  if(!prenom||!tel){alert('Merci de renseigner au minimum votre prénom et téléphone.');return;}
+
+  // Afficher loader
+  if(isModal){
+    document.getElementById('m-form').style.display='none';
+    document.getElementById('m-sending').classList.add('active');
+  } else {
+    document.getElementById('c-form').style.display='none';
+    document.getElementById('c-sending').classList.add('active');
+  }
+
+  // Paramètres envoyés au template EmailJS
+  const params = {
+    to_email:    'Mahmoud.rahma1@icloud.com',
+    from_name:   prenom+' '+nom,
+    from_tel:    tel,
+    from_email:  email||'Non renseigné',
+    service:     service,
+    message:     msg||'Aucun message',
+    reply_to:    email||'',
+  };
+
+  try {
+    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params);
+    showSuccess(isModal);
+  } catch(err){
+    console.error('EmailJS error:', err);
+    // Fallback : ouvrir le client mail avec les infos pré-remplies
+    const body = encodeURIComponent(
+      `Nouvelle demande de : ${prenom} ${nom}\nTél : ${tel}\nEmail : ${email||'N/A'}\nService : ${service}\nMessage : ${msg}`
+    );
+    window.location.href = `mailto:Mahmoud.rahma1@icloud.com?subject=Nouvelle demande - Plomberie Dupont&body=${body}`;
+    showSuccess(isModal);
+  }
+}
+
+function showSuccess(isModal){
+  if(isModal){
+    document.getElementById('m-sending').classList.remove('active');
+    document.getElementById('m-success').classList.add('active');
+    setTimeout(closeModal,4000);
+  } else {
+    document.getElementById('c-sending').classList.remove('active');
+    document.getElementById('c-success').classList.add('active');
+  }
+}
+</script>
+</body>
+</html>
